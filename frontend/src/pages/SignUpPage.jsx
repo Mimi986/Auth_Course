@@ -3,17 +3,27 @@ import { motion } from 'framer-motion'
 import Input from '../components/Input'
 import { User,Mail,Lock,Loader } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import PasswordStrenghtMeter from '../components/PasswordStrengthMeter'
+import { useAuthStore } from '../store/authStore.js'
 
 const SignUpPage = () => {
     const [name, setname] = useState("")
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
-    const isLoading=false
 
-    const handleSignUp = (e) => {
+    const {signup,error,isLoading} = useAuthStore()
+
+    const navigate = useNavigate()
+   
+    const handleSignUp = async (e) => {
         e.preventDefault()    //ne pas faire l'action (rechargement) par défaut
+        try {
+            await signup(email,password,name)
+            navigate("/verify-email")
+        } catch (error) {
+            console.error(error)
+        }
     }
 
   return (
@@ -43,9 +53,10 @@ const SignUpPage = () => {
                 value={password}
                 onChange={(e)=>setpassword(e.target.value)}
                 />
+                {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
                 <PasswordStrenghtMeter password={password}/>
                 <motion.button className='mt-5 w-full py-3 px-4 bg-linear-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200' whileHover={{scale:1.02}} whileTap={{scale:0.98}} type="submit" disabled={isLoading}>
-                    {isLoading ? <Loader className='w-6 h-6 animate-spin mx-auto'/> : "Login" } 
+                    {isLoading ? <Loader className='w-6 h-6 animate-spin mx-auto'/> : "Sign Up" } 
                 </motion.button>
             </form>
         </div>
