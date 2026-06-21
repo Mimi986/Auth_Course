@@ -1,6 +1,6 @@
 import {create} from 'zustand'
 import axios from 'axios'
-import { checkAuth, resetPassword } from '../../../backend/controllers/authController'
+
 
 const API_URL = "http://localhost:3000/api/auth"
 
@@ -67,6 +67,7 @@ const API_URL = "http://localhost:3000/api/auth"
             const response = await axios.post(`${API_URL}/forgot-password`,{email})
             set({message:response.data.message,isLoading:false})
         } catch (error) {
+            console.log("BACKEND ERROR",error.response?.data)
             set({error:error.response?.data?.message || "error sending reset password email",isLoading:false})
             throw error 
         }

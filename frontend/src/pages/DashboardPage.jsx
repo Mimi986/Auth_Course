@@ -13,7 +13,7 @@ const DashboardPage = () => {
       <h2 className='text-3xl font-bold mb-6 text-center bg-linear-to-r from-green-400 to-emerald-600 text-transparent bg-clip-text'>Dashboard</h2> 
       <div className='space-y-6'>
         <motion.div className='p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700'
-        inital={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.2}}>
+        initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.2}}>
           <h3 className='text-xl font-semibold text-green-400 mb-3'>Profile information</h3>
           <p className='text-gray-300'>Name : {user.name}</p>
           <p className='text-gray-300'>Email : {user.email}</p>

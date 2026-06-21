@@ -35,7 +35,7 @@ export const login = async (req,res) => {
     try{
         const user = await User.findOne({email})
         if(!user) return res.status(400).json({success:false,message:"invalid credentials"})
-            const isPasswordValid = await bcrypt.compare(password,user.password)
+            const isPasswordValid = await bcryptjs.compare(password,user.password)
             if(!isPasswordValid) return res.status(400).json({success:false,message:"invalid credentials"})
                 generateTokenAndSetCookie(res,user._id)
                 user.lastLogin = new Date()
