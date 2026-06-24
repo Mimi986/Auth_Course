@@ -41,7 +41,7 @@ const API_URL = "http://localhost:3000/api/auth"
             set({error:null,isCheckingAuth:false,isAuthenticated:false})    //error est à null car il ne peut pas avpoir d'erreur : soit le user est authnetifié soit non 
         }
     },
-    login : async(email,password) => {
+    login : async (email,password) => {
         set({isLoading:true,error:null})
         try {
             const response = await axios.post(`${API_URL}/login`,{email,password})   //post === envoyer les données email et password vers la route là
